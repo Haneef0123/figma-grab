@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+# large replay fixtures for the offline tests (the stock-comparison one is a symlink to a local extraction)
+test/fixtures/

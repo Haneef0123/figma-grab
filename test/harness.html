@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Figma Grab</title>
+  <link rel="stylesheet" href="/src/renderer/styles.css" />
+</head>
+<body>
+  <div class="titlebar" aria-hidden="true"></div>
+
+  <!-- 1. Connect Figma (first run) -->
+  <main class="view center" id="view-token" hidden>
+    <h1>Connect Figma</h1>
+    <p class="lede">Paste a personal access token. It’s stored encrypted in your Mac’s Keychain and only ever sent to Figma.</p>
+    <form class="field" id="token-form" autocomplete="off">
+      <input id="token-input" type="password" placeholder="figd_…" spellcheck="false" aria-label="Figma personal access token" />
+      <button class="primary" type="submit" id="token-save">Save</button>
+    </form>
+    <p class="notice" id="token-notice" role="alert" hidden></p>
+    <p class="hint">Needs <em>File content → Read</em> access. <button class="link" id="token-help" type="button">How to create a token</button></p>
+  </main>
+
+  <!-- 2. Paste a link -->
+  <main class="view center" id="view-home" hidden>
+    <h1>Pull every screen from Figma</h1>
+    <p class="lede">Paste a link to a page, section or frame.</p>
+    <form class="field" id="home-form" autocomplete="off">
+      <input id="url-input" type="text" placeholder="https://www.figma.com/design/…" spellcheck="false" aria-label="Figma link" />
+      <button class="primary" type="submit" id="start-btn" disabled>Start</button>
+    </form>
+    <label class="opt"><input type="checkbox" id="opt-split" checked /> <span>Split long pages into sections</span></label>
+    <div class="notice" id="home-notice" role="alert" hidden></div>
+    <ul class="pages" id="pages" hidden></ul>
+    <footer class="foot">
+      <span>Connected to Figma</span>
+      <button class="link" id="change-token" type="button">Change token</button>
+    </footer>
+  </main>
+
+  <!-- 3. Working -->
+  <main class="view center" id="view-loading" hidden>
+    <div class="spinner" aria-hidden="true"></div>
+    <h2 id="loading-label" aria-live="polite">Starting…</h2>
+    <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"><span id="bar-fill"></span></div>
+    <p class="count" id="loading-count">&nbsp;</p>
+    <button class="quiet" id="cancel-btn" type="button">Cancel</button>
+  </main>
+
+  <!-- 4. Results -->
+  <main class="view results" id="view-results" hidden>
+    <header class="bar-top">
+      <button class="quiet" id="back-btn" type="button">‹ New link</button>
+      <div class="spacer"></div>
+      <button class="quiet" id="folder-btn" type="button">Show in Finder</button>
+    </header>
+    <section class="head">
+      <h1 id="res-title"></h1>
+      <p class="lede" id="res-sub"></p>
+    </section>
+    <div id="groups"></div>
+    <p class="hint small-note" id="small-note" hidden></p>
+  </main>
+
+  <dialog id="lightbox" aria-label="Preview">
+    <div class="lb-frame" id="lightbox-frame"><img id="lightbox-img" alt="" /></div>
+    <div class="lb-bar">
+      <span id="lightbox-name"></span>
+      <button class="primary small" id="lightbox-open" type="button">Open in Figma</button>
+    </div>
+  </dialog>
+
+  <script src="/test/mock-api.js"></script><script src="/src/renderer/app.js"></script>
+</body>
+</html>

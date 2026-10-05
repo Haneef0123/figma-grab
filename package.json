@@ -1,0 +1,17 @@
+{
+  "name": "figma-grab",
+  "productName": "Figma Grab",
+  "version": "1.0.0",
+  "description": "Paste a Figma link, get every screen as a card with a screenshot and a link back to Figma.",
+  "main": "src/main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "test": "node test/e2e.js && node test/e2e-split.js",
+    "pack": "electron-packager . \"Figma Grab\" --platform=darwin --arch=arm64 --out=dist --overwrite --prune=true --icon=build/icon --app-bundle-id=com.figmagrab.app --ignore=\"^/test\" --ignore=\"^/dist\" --ignore=\"^/build\" --ignore=\"^/\\.smoke\" && codesign --force --deep --sign - \"dist/Figma Grab-darwin-arm64/Figma Grab.app\""
+  },
+  "devDependencies": {
+    "@electron/packager": "^20.3.0",
+    "electron": "^44.5.1"
+  }
+}

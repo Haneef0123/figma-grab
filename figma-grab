@@ -1,0 +1,12 @@
+#!/bin/bash
+# One-command Figma extraction: JSON + styles + image fills, then PNG renders + slimmed JSON.
+# Usage: FIGMA_TOKEN=... ./figma-grab "<figma url>" [outDir] [maxDepth]
+#   depth: max levels to descend (default 4). Only SECTIONs are descended; each frame = one chunk.
+set -e
+URL="$1"; OUT="${2:-figma-out}"; DEPTH="${3:-4}"
+[ -z "$FIGMA_TOKEN" ] && { echo "Set FIGMA_TOKEN first: export FIGMA_TOKEN=\"figd_...\""; exit 1; }
+[ -z "$URL" ] && { echo 'Usage: ./figma-grab "<figma url>" [outDir] [maxDepth]'; exit 1; }
+DIR="$(cd "$(dirname "$0")" && pwd)"
+export NODE_NO_WARNINGS=1
+node "$DIR/figma-extract.mjs" "$URL" "$OUT" --depth="$DEPTH"
+node "$DIR/figma-finish.mjs" "$URL" "$OUT"
